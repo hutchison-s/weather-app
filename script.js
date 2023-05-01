@@ -186,6 +186,5 @@ console.log(days)
 }
 
 getWeather();
-setInterval(getWeather, 60000)
 setTime();
 
