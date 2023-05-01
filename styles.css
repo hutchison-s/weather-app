@@ -97,7 +97,8 @@
     flex: 1 0 calc(50% - 5px);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: top;
+    gap: 10px;
     background-position: center;
     background-size: 600px;
     text-align: center;
