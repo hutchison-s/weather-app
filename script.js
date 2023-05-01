@@ -37,7 +37,8 @@ const codeColors = {
   80: "#6081FB",
   81: "#6081FB",
   82: "#6081FB",
-  95: "#A5A9B6"
+  95: "#A5A9B6",
+  96: "#A5A9B6"
 }
 const codeWords = {
   0: "Clear skies",
@@ -54,7 +55,8 @@ const codeWords = {
   80: "Light rain shower",
   81: "Rain showers",
   82: "Heavy rain shower",
-  95: "Thunderstorms"
+  95: "Thunderstorms",
+  96: "Thunderstorms"
 }
 
 const weekDays = [
