@@ -1,0 +1,161 @@
+:root {
+    --background: #ffffff;
+    --foreground: #101010;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: blue;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+    border: 10px solid blue;
+    border-radius: 2rem;
+    overflow: hidden;
+    background: var(--background);
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.5)
+  }
+  #current {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    color: var(--foreground);
+  }
+  #coverCurrent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    background: var(--background);
+  }
+  .windBox {
+    position: absolute;
+    opacity: 1;
+    color: blue;
+    width: 60%;
+    aspect-ratio: 1;
+    z-index: 1;
+  }
+  #windPointer {
+    position: absolute;
+    opacity: 0.5;
+    top: 10%;
+    left: 50%;
+    font-family: "Impact";
+    font-weight: 800;
+    font-size: x-large;
+    transform: translateX(-50%) rotate(-90deg);
+  }
+  #currentTemp {
+    font-size: x-large;
+    z-index: 2;
+    text-shadow: 2px 2px 15px var(--background);
+  }
+  #currentTime {
+    position: absolute;
+    top: 5%;
+    right: 50%;
+    transform: translateX(50%);
+    font-size: 1.2rem;
+    animation: slowBlink 2s infinite alternate;
+  }
+  #currentConditions {
+    z-index: 1;
+    text-shadow: 2px 2px 15px black;
+  }
+  .cloud {
+    position: absolute;
+    opacity: 0.5;
+  }
+  
+  #weekForecast {
+    display: flex;
+    flex-wrap: no-wrap;
+    gap: 10px;
+    overflow-x: auto;
+    width: 100%;
+    height: 40%;
+    padding: 10px;
+  }
+  .day {
+    position: relative;
+    flex: 1 0 calc(50% - 5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-position: center;
+    background-size: 600px;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 2rem;
+  }
+  .dayName {
+    font-size: 1.4rem;
+  }
+  .dayConditions {
+    margin: 15px 0;
+  }
+  .dayDetails {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-items: space-around;
+  }
+  .dayDetails * {
+    flex: 1 1 50%;
+    font-size: 1.2rem;
+    display: grid;
+    place-items: center;
+  }
+  .coverDay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+  }
+  
+  @keyframes slowBlink {
+    from {opacity: 0.6}
+    to {opacity: 1}
+  }
+  
+  @keyframes drift {
+    from {transform: translateX(0px)}
+    to {transform: translateX(-100px)}
+  }
+  
+  @media screen and (min-width: 400px) {
+    body {
+      background: lavender;
+    }
+    #app {
+      max-width: 800px;
+      height: 80vh;
+    }
+    #current {
+      height: 60%;
+      width: unset;
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+    .day {
+      flex: 1 0 200px;
+    }
+  }
