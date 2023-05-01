@@ -77,11 +77,22 @@ function createDay({ day, maxTemp, minTemp, precipChance, code }) {
   newDay.classList.add("day");
   newDay.style.backgroundColor = codeColors[code]
   let dayDate = newDate.toDateString().split(" ");
+  let possibilityWord;
+  switch (true) {
+    case (precipChance <= 55 && precipChance >= 30 && code > 50):
+      possibilityWord = "Chance of ";
+      break;
+    case (precipChance < 30 && code > 50):
+      possibilityWord = "Possible ";
+      break;
+    default:
+      possibilityWord = ""
+  }
   newDay.innerHTML = `
   <h1 class="dayName">${dayOfWeek}</h1>
   <p>${dayDate[1]} ${dayDate[2]}</p>
   
-  <p class="dayConditions">${codeWords[code]}</p>
+  <p class="dayConditions">${possibilityWord}${codeWords[code]}</p>
   <div class="dayDetails">
     <div>
       <h3>${Math.round(maxTemp)}&deg; F</h3>
