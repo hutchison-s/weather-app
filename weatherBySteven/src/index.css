@@ -2,4 +2,114 @@
 /* font-family: 'Nunito', sans-serif;  weights: 200, 400, 700*/
 * {
     font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --overlayColor: rgba(47, 64, 88, 0.85);
+    --darkBlue: rgb(0, 0, 55);
+}
+.App {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+.currentWeather {
+    flex: 3;
+    display: grid;
+    place-content: center;
+    background: center / cover url("./assets/bg-night.png") no-repeat;
+    box-shadow: 0 0 50px inset var(--darkBlue);
+}
+.currentWeather.isDay {
+    background: center / cover url("./assets/bg-day.png") no-repeat;
+}
+.currentTemp {
+    font-size: 5rem;
+    color: #fff;
+}
+.forecastChoice {
+    display: flex;
+    color: #fff;
+    background-color: var(--darkBlue);
+}
+.forecastChoice label {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+.forecastChoice label:has(input:checked) {
+    background: rgb(180, 67, 23);
+}
+.forecast {
+    flex: 2;
+    display: flex;
+    width: 100%;
+    height: 40%;
+    gap: 0.4rem;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background-color: var(--darkBlue);
+    padding: 0.4rem;
+}
+.dayForecast {
+    flex: 1 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    background-position: center;
+    background-size: cover;
+    padding: 1rem;
+    border-left: 1px solid var(--darkBlue);
+    border-right: 1px solid var(--darkBlue);
+    box-shadow: 0 0 15px inset var(--darkBlue);
+    border-radius: 1rem;
+}
+.dayForecast[data-image="./assets/clear.png"] {
+    background-image: url("./assets/clear.png");
+}
+.dayForecast[data-image="./assets/rain.png"] {
+    background-image: url("./assets/rain.png");
+}
+.dayForecast[data-image="./assets/storms.png"] {
+    background-image: url("./assets/storms.png");
+}
+.dayName {
+    background: var(--overlayColor);
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+.dayDate {
+    margin-bottom: 1rem;
+    background: var(--overlayColor);
+    display: block;
+    width: 100%;
+    font-weight: 200;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+.dayConditions {
+    flex: 100%;
+    font-weight: 200;
+}
+.dayDetails {
+    flex: 0 0 70%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    text-align: center;
+    background-color: var(--overlayColor);
+    border-radius: 1rem;
+    padding: 1.5rem 0.5rem;
 }
