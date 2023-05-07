@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
 /* font-family: 'Nunito', sans-serif;  weights: 200, 400, 700*/
+
+/* --------- GLOBAL LEVEL ---------*/
 * {
     font-family: 'Nunito', sans-serif;
     margin: 0;
@@ -7,8 +9,13 @@
     box-sizing: border-box;
 }
 :root {
-    --overlayColor: rgba(47, 64, 88, 0.85);
+    --overlayColor: rgba(69, 82, 100, 0.9);
+    --overlayTransparency: rgba(69, 82, 100, 0.6);
     --darkBlue: rgb(0, 0, 55);
+}
+body {
+    max-width: 100vw;
+    max-height: 100vh;
 }
 .App {
     position: relative;
@@ -16,21 +23,127 @@
     flex-direction: column;
     width: 100vw;
     height: 100vh;
+    overflow-y: hidden;
 }
+
+/* --------- LOCATION INPUT ---------*/
+
+#zipChange {
+    position: fixed;
+    top: 5px;
+    left: 50vw;
+    width: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 128, 0.3);
+    border: 1px solid var(--darkBlue);
+    border-radius: 1rem;
+    transition: all 0.4s ease-in-out;
+}
+#zipChange~label {
+    position: fixed;
+    top: 60px;
+    left: 20%;
+    width: 60%;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    background-color: rgba(180, 68, 23, 0.8);
+    color: white;
+    border-radius: 3rem;
+    transform: translateY(100vh);
+    opacity: 0;
+    transition: all 0.6s;
+}
+#zipChange:focus {
+    transform: scale(1.2) translateX(-42%);
+    transform-origin: center;
+    transition: all 0.4s ease-in-out;
+}
+#zipChange:focus ~label {
+    opacity: 1;
+    transform: translateY(0);
+}
+#crosshairs{
+    position: fixed;
+    transform: scale(1.5);
+    color: rgba(250,250,250,0.2);
+    top: 12px;
+    right: 12px;
+    padding: 5px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+#crosshairs:active {
+    color: skyblue;
+}
+
+/* ------------------------------------
+   --------- CURRENT WEATHER ----------
+   ------------------------------------ */
+
 .currentWeather {
+    position: relative;
     flex: 3;
     display: grid;
     place-content: center;
     background: center / cover url("./assets/bg-night.png") no-repeat;
     box-shadow: 0 0 50px inset var(--darkBlue);
 }
-.currentWeather.isDay {
+.currentWeather.is_day {
     background: center / cover url("./assets/bg-day.png") no-repeat;
 }
-.currentTemp {
+.currentWeather.is_night {
+    background: center / cover url("./assets/bg-night.png") no-repeat;
+}
+.currentWeather.is_duskdawn {
+    background: center / cover url("./assets/bg-duskdawn.png") no-repeat;
+}
+#currentTemp {
     font-size: 5rem;
     color: #fff;
 }
+#currentTime {
+    color: #fff;
+    text-align: center;
+    font-size: medium;
+}
+#windBox {
+    position: absolute;
+    opacity: 1;
+    top: 8vh;
+    left: max(10%, calc(50vw - 250px));
+    color: var(--darkBlue);
+    width: 80%;
+    max-width: 500px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px dashed rgba(250, 128, 114, 0.4);
+    transition: rotate 0.4s;
+}
+#windPointer {
+    position: absolute;
+    opacity: 0.5;
+    top: 0;
+    left: 50%;
+    font-family: "Impact";
+    font-weight: 800;
+    font-size: x-large;
+    transform: translateX(-50%) rotate(-45deg);
+}
+#currentLocation {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(250,250,250,0.5)
+}
+
+/* --------- DAILY / HOURLY TOGGLE ---------*/
+
+
 .forecastChoice {
     display: flex;
     color: #fff;
@@ -44,6 +157,11 @@
 .forecastChoice label:has(input:checked) {
     background: rgb(180, 67, 23);
 }
+
+/* ------------------------------------
+   --------- FORECAST SECTION ---------
+   ------------------------------------ */
+
 .forecast {
     flex: 2;
     display: flex;
@@ -55,6 +173,40 @@
     background-color: var(--darkBlue);
     padding: 0.4rem;
 }
+
+/* -------------------------  HOURLY --------------- */
+
+.hourForecast {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    flex: 0 0 120px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 25px rgba(0,0,0,0.3);
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(250,250,250,0.15);
+}
+.hourTime {
+    position: absolute;
+    top: 12%;
+    width: 100%;
+    text-align: center;
+}
+.hourTemp {
+    height: 70%;
+    position: relative;
+}
+.hourPrecip {
+    position: absolute;
+    bottom: 12%;
+    width: 100%;
+    text-align: center;
+}
+
+/* -------------------------  DAILY --------------- */
+
 .dayForecast {
     flex: 1 0 50%;
     display: flex;
@@ -71,37 +223,38 @@
     box-shadow: 0 0 15px inset var(--darkBlue);
     border-radius: 1rem;
 }
-.dayForecast[data-image="./assets/clear.png"] {
+.dayForecast[data-image="clear"] {
     background-image: url("./assets/clear.png");
 }
-.dayForecast[data-image="./assets/rain.png"] {
+.dayForecast[data-image="rain"] {
     background-image: url("./assets/rain.png");
 }
-.dayForecast[data-image="./assets/storms.png"] {
+.dayForecast[data-image="storms"] {
     background-image: url("./assets/storms.png");
 }
-.dayName {
-    background: var(--overlayColor);
+.dayForecast[data-image="cloudy"] {
+    background-image: url("./assets/cloudy.png");
+}
+.dayHeader {
+    background-image: radial-gradient(var(--overlayColor), var(--overlayTransparency));
     display: block;
     width: 100%;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}
+.dayName {
     font-size: 1.5rem;
-    border-top-right-radius: 1rem;
-    border-top-left-radius: 1rem;
 }
 .dayDate {
-    margin-bottom: 1rem;
-    background: var(--overlayColor);
-    display: block;
-    width: 100%;
     font-weight: 200;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
 }
 .dayConditions {
     flex: 100%;
     font-weight: 200;
 }
 .dayDetails {
+    position: relative;
     flex: 0 0 70%;
     display: flex;
     flex-wrap: wrap;
@@ -109,7 +262,48 @@
     justify-content: space-evenly;
     align-items: flex-end;
     text-align: center;
-    background-color: var(--overlayColor);
+    background-image: radial-gradient(var(--overlayColor), var(--overlayTransparency));
     border-radius: 1rem;
     padding: 1.5rem 0.5rem;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------
+   ----------- ANIMATIONS -------------
+   ------------------------------------ */
+
+@keyframes fall {
+    0% {
+        top: 10%;
+        opacity: 0;
+        transform: scaleX(0.2);
+    }
+    30% {
+        top: 15%;
+        opacity: 1;
+        transform: scaleX(1)
+    }
+    70% {
+        top: 85%;
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    100% {
+        top: 90%;
+        opacity: 0;
+        transform: scaleX(0.2);
+    }
+}
+
+/* ------------------------------------
+   ----------- RESPONSIVE -------------
+   ------------------------------------ */
+
+@media screen and (min-width: 400px) {
+    #zipChange {
+        font-size: large;
+    }
+    .dayForecast {
+        flex: 1 0 250px
+    }
 }
