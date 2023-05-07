@@ -20,13 +20,7 @@ export default function Header ({location, setLocation}) {
     }
 
     function error(err) {
-      if (confirm("Unable to access device location. If you are using an iPhone, click OK to change device settings or click CANCEL to continue viewing weather by Zip Code.") == true) {
-        if (navigator.userAgent.match(/iPhone/i)) {
-          window.location.href = "App-Prefs://prefs:any_string"
-        } else {
-          null
-        }
-      }
+      alert("Unable to access device location. Continue viewing weather by Zip Code or change browser settings to allow location sharing.")
     }
 
       
