@@ -118,6 +118,22 @@ useEffect(()=>{
   }, [isDaily, location])  
 
   return (
+    <>
+    <header id='appHeader'>
+        <div id='logoBox'>WBS
+          <img id='logo' src='./src/assets/logo.png'/>
+        </div>
+        <form onSubmit={changeLocation}>
+          <input type='text' id='zipChange' pattern='\d*' maxLength='5' minLength='5' placeholder={`Weather for ${location.zip}`}/>
+          <label onClick={changeLocation} htmlFor='zipChange'>Get Weather by Zip Code</label>
+        </form>
+        <FontAwesomeIcon 
+          icon={faLocationCrosshairs} 
+          id='crosshairs' 
+          onClick={()=>{
+            setCurrentLocation(navigator.geolocation.getCurrentPosition(setCurrentLocation))
+        }}/>
+      </header>
     <div className='App'>
       {daysData.length > 0
         ? <CurrentWeather 
@@ -126,12 +142,7 @@ useEffect(()=>{
         currentData={currentData} currentTime={currentTime}/>
         : <Spinner />
       }
-      <FontAwesomeIcon 
-        icon={faLocationCrosshairs} 
-        id='crosshairs' 
-        onClick={()=>{
-          setCurrentLocation(navigator.geolocation.getCurrentPosition(setCurrentLocation))
-        }}/>
+      
       <small id='currentLocation'>
         {location.zip.length > 5 ? location.zip : location.city}
       </small>
@@ -151,12 +162,9 @@ useEffect(()=>{
             </div>
         }
       </div>
-      <form onSubmit={changeLocation}>
-        <input type='text' id='zipChange' pattern='\d*' maxLength='5' minLength='5' placeholder={`Weather for ${location.zip}`}/>
-        <label onClick={changeLocation} htmlFor='zipChange'>Get Weather by Zip Code</label>
-      </form>
       <p id='credit'>Powered by Open-Meteo.com</p>
     </div>
+    </>
   )
 }
 
