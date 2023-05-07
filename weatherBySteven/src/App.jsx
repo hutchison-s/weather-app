@@ -121,7 +121,7 @@ useEffect(()=>{
     <>
     <header id='appHeader'>
         <div id='logoBox'>WBS
-          <img id='logo' src='./src/assets/logo.png'/>
+          <img id='logo' src='./logo.png'/>
         </div>
         <form onSubmit={changeLocation}>
           <input type='text' id='zipChange' pattern='\d*' maxLength='5' minLength='5' placeholder={`Weather for ${location.zip}`}/>
