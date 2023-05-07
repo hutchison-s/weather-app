@@ -6,8 +6,8 @@ import {timeString, timeToDateObject} from '../converterFuncs'
 export default function HourForecast({ hour }) {
     let nightDay = 
       (timeToDateObject(hour.time).getHours() > 6 && timeToDateObject(hour.time).getHours() < 21)
-        ? './public/clear.png'
-        : './public/night.png'
+        ? './clear.png'
+        : './night.png'
     let bgImage = `
       linear-gradient(transparent, ${hour.color}),
       radial-gradient(rgba(100,100,200,0.5), rgba(0,0,0,0.8)),

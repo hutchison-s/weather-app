@@ -153,9 +153,9 @@ useEffect(()=>{
       </div>
       <form onSubmit={changeLocation}>
         <input type='text' id='zipChange' pattern='\d*' maxLength='5' minLength='5' placeholder={`Weather for ${location.zip}`}/>
-        <label htmlFor='zipChange'>Get Weather by Zip Code</label>
+        <label onClick={changeLocation} htmlFor='zipChange'>Get Weather by Zip Code</label>
       </form>
-      
+      <p id='credit'>Powered by Open-Meteo.com</p>
     </div>
   )
 }
