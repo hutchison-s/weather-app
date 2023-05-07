@@ -5,6 +5,12 @@ import {PropTypes} from 'prop-types'
 
 export default function Header ({location, setLocation}) {
 
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 3600000,
+  };
+
     async function success(pos) {
         try {
           const coords = await pos.coords;
@@ -25,7 +31,7 @@ export default function Header ({location, setLocation}) {
 
       
     useEffect(()=>{
-        navigator.geolocation.getCurrentPosition(success, error)
+        navigator.geolocation.getCurrentPosition(success, error, options)
     }, [])
 
     function changeLocation(e) {
@@ -73,7 +79,7 @@ export default function Header ({location, setLocation}) {
                 icon={faLocationCrosshairs} 
                 id='crosshairs' 
                 onClick={()=>{
-                    navigator.geolocation.getCurrentPosition(success, error)
+                    navigator.geolocation.getCurrentPosition(success, error, options)
             }}/>
         </header>
     )
