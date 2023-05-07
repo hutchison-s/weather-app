@@ -20,13 +20,13 @@ const codeKeys = {
     3: {
         color: "#0175C0",
         desc: "Overcast",
-        image: "clear",
+        image: "cloudy",
         code: 3
       },
     45: {
         color: "#0175C0",
         desc: "Foggy",
-        image: "clear",
+        image: "cloudy",
         code: 45
       },
     51: {
