@@ -5,9 +5,9 @@ import {PropTypes} from 'prop-types'
 
 export default function Header ({location, setLocation}) {
 
-    async function setCurrentLocation(thing) {
+    async function success(pos) {
         try {
-          const coords = await thing.coords;
+          const coords = await pos.coords;
           setLocation({
             zip: "Your Location",
             latitude: await coords.latitude,
@@ -17,11 +17,21 @@ export default function Header ({location, setLocation}) {
         } catch(err) {
           null
         }
-        
     }
+
+    function error(err) {
+      if (confirm("Unable to access device location. If you are using an iPhone, click OK to change device settings or click CANCEL to continue viewing weather by Zip Code.") == true) {
+        if (navigator.userAgent.match(/iPhone/i)) {
+          window.location.href = "App-Prefs://prefs:any_string"
+        } else {
+          null
+        }
+      }
+    }
+
       
     useEffect(()=>{
-        navigator.geolocation.getCurrentPosition(setCurrentLocation)
+        navigator.geolocation.getCurrentPosition(success, error)
     }, [])
 
     function changeLocation(e) {
@@ -69,7 +79,7 @@ export default function Header ({location, setLocation}) {
                 icon={faLocationCrosshairs} 
                 id='crosshairs' 
                 onClick={()=>{
-                    navigator.geolocation.getCurrentPosition(setCurrentLocation)
+                    navigator.geolocation.getCurrentPosition(success, error)
             }}/>
         </header>
     )
